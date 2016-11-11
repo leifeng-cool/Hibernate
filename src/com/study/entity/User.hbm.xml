@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<!-- 实体类class和数据表table的映射 -->
+	<class name="com.study.entity.User" table="t_user">
+		<!-- id标签用来映射主键字段
+			 name属性表示类的属性
+			 column属性表示表的字段 -->
+		<id name="uid" column="uid">
+			<!-- 主键生成策略
+				native：表示根据连接数据库的表的主键生成方式来生成主键值
+				uuid:由框架自动生成32位16进制的字符串数字
+				mysql数据采用的auto_increment属性来生成主键值， 一般需要主键字段类型设置为int-->
+			<generator class="native"></generator>
+			<!-- <generator class="uuid"></generator> -->
+		</id>
+		<!-- 配置普通属性映射 
+			 name表示类中的属性名称
+			 column表示表中的列名称，column属性不指定会采用默认值，默认名称与属性名称一致
+			 length表示属性字符长度
+			 not-null表示属性值不能为null-->
+		<property name="username" column="username"></property>
+		<property name="age" column="age"></property>
+		<property name="address" column="address"></property>
+	</class>
+</hibernate-mapping>

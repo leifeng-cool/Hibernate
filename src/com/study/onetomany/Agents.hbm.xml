@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<!-- 实体类class和数据表table的映射 -->
+	<class name="com.study.onetomany.Agents" table="t_agents">
+		<!-- id标签用来映射主键字段
+			 name属性表示类的属性
+			 column属性表示表的字段 -->
+		<id name="aId" column="aId">
+			<!-- 主键生成策略
+				native：表示根据连接数据库的表的主键生成方式来生成主键值
+				uuid:由框架自动生成32位16进制的字符串数字
+				mysql数据采用的auto_increment属性来生成主键值， 一般需要主键字段类型设置为int-->
+			<generator class="native"></generator>
+		</id>
+		<!-- 配置普通属性映射 
+			 name表示类中的属性名称
+			 column表示表中的列名称，column属性不指定会采用默认值，默认名称与属性名称一致
+			 length表示属性字符长度
+			 not-null表示属性值不能为null-->
+		<property name="aName" column="aName"></property>
+		<property name="aGender" column="aGender"></property>
+		<property name="aPhone" column="aPhone"></property>
+		
+		
+		<!-- 
+			在客户映射文件中，表示所有联系人
+			使用set标签表示所有联系人
+			set标签里面有name属性
+			属性值写在代理商实体类中表示客户的set集合
+			cascade:表示级联操作，save-update表示级联保存，delete级联删除，all
+		 -->
+		 <set name="sCustoms" cascade="save-update,delete">
+		 <!-- 一对多建表，有外键
+		 		hibernate机制，双向维护外键，在一和多那方都需要配置外键 
+		 		column的属性值：外键名称-->
+		 	<key column="acId"></key>
+		 	<!-- 表示代理商的全部客户，class的值为客户实体类的全路径 -->
+		 	<one-to-many class="com.study.onetomany.Customs"/>
+		 </set>
+	</class>
+</hibernate-mapping>
